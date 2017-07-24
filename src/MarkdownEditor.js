@@ -1,7 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Reflux = require('reflux');
-var Markdown = require('markdown').markdown;
 var MarkdownEditorActions = require('./actions/MarkdownEditorActions');
 var PublicMarkdownEditorActions = require('./actions/PublicMarkdownEditorActions');
 var MarkdownSelectionActions = require('./actions/MarkdownSelectionActions');
@@ -26,14 +25,18 @@ var UrlMarkdownToken = MarkdownTokenFactory.UrlMarkdownToken;
 var ListMarkdownToken = MarkdownTokenFactory.ListMarkdownToken;
 var ImageMarkdownToken = MarkdownTokenFactory.ImageMarkdownToken;
 
+var DefautStyle = require('./style/EditorStyle');
+require('./style/font-awosome.css');
+
 var MarkdownEditor = React.createClass({
   mixins: [Reflux.ListenerMixin],
 
   propTypes: {
     initialContent: React.PropTypes.string.isRequired,
-    iconsSet: React.PropTypes.oneOf(['font-awesome', 'materialize-ui']).isRequired,
     onContentChange: React.PropTypes.func,
-    editorTabs: React.PropTypes.bool
+    editorTabs: React.PropTypes.bool,
+    previewClass: React.PropTypes.string,   // md-editor-preview
+    textareaClass: React.PropTypes.string       // md-editor-textarea
   },
 
   getInitialState: function() {
@@ -46,15 +49,16 @@ var MarkdownEditor = React.createClass({
     var editorMenu;
 
     if (this.state.inEditMode) {
-      divContent = <MarkdownEditorContent styles={{styleMarkdownTextArea: this.props.styles.styleMarkdownTextArea}}
+      divContent = <MarkdownEditorContent className={this.props.textareaClass}
+                                          styles={{styleMarkdownTextArea: this.props.styles.styleMarkdownTextArea}}
                                           content={this.state.content} onChangeHandler={this.onChangeHandler}/>;
       if (this.props.editorTabs !== false){
-
           editorMenu = <MarkdownEditorMenu styles={{styleMarkdownMenu: this.props.styles.styleMarkdownMenu}}
-                                            iconsSet={this.props.iconsSet} instanceRef={this.state.instanceRef}/>;
+                                           instanceRef={this.state.instanceRef}/>;
       }
     } else {
-      divContent = <MarkdownEditorPreview styles={{styleMarkdownPreviewArea: this.props.styles.styleMarkdownPreviewArea}}
+      divContent = <MarkdownEditorPreview className={this.props.previewClass}
+                                          styles={{styleMarkdownPreviewArea: this.props.styles.styleMarkdownPreviewArea}}
                                           content={this.state.content} />;
       editorMenu = null;
     }
@@ -150,34 +154,7 @@ var MarkdownEditor = React.createClass({
 });
 
 MarkdownEditor.defaultProps = {
-   styles : {
-        styleMarkdownEditorHeader : {
-          'display': 'flex',
-          'flexDirection': 'column',
-          'borderBottom': '1px solid #ddd',
-          'marginLeft': '0px',
-          'marginRight': '0px',
-          'minHeight': '50px',
-          'justifyContent': 'center',
-          'position': 'relative',
-        },
-        styleMarkdownEditorContainer : {
-          'display': 'flex',
-          'flexDirection': 'column',
-          'marginTop': '2px',
-          'paddingTop': '10px',
-          'border': '1px solid #ddd',
-          'backgroundColor': '#f7f7f7'
-        },
-        styleMarkdownMenu : {
-            'margin': '5px 0',
-            'flex': '1',
-            'display': 'flex',
-            'position': 'absolute',
-            'right': '20px',
-            'top': '10px'
-        }
-      }
+   styles : DefautStyle
 }
 
 module.exports = MarkdownEditor;

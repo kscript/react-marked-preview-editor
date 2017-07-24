@@ -1,30 +1,25 @@
-var ReactMarkdownEditor = require('react-markdown-editor');
+var React = require('react');
+var ReactDOM = require('react-dom');
+var ReactMarkdownEditor = require('../index');
 var MarkdownEditor = ReactMarkdownEditor.MarkdownEditor;
 var ExampleWithOnChangeContent = require('./components/ExampleWithOnChangeContent');
-var ReactDOM = require('react-dom');
-var React = require('react');
 
-$(document).ready(function() {
-  ReactDOM.render(React.createElement(MarkdownEditor, {initialContent: 'My initial content', iconsSet: 'font-awesome'}),
-    document.getElementById('react-container-1'));
-  ReactDOM.render(React.createElement(MarkdownEditor, {initialContent: 'My initial content', iconsSet: 'materialize-ui'}),
-    document.getElementById('react-container-2'));
-  ReactDOM.render(React.createElement(ExampleWithOnChangeContent),
-    document.getElementById('react-container-3'));
-  ReactDOM.render(React.createElement(MarkdownEditor, {
-    initialContent: 'My initial content', iconsSet: 'font-awesome',
-    styles: {
-      styleMarkdownEditorHeader: {
-        backgroundColor: '#1b748f',
-        color: 'white'
-      },
-      styleMarkdownMenu: {
-        color: 'black'
-      },
-      styleActiveTab: {
-        color: 'black'
-      }
-    }
-  }),
-    document.getElementById('react-container-4'));
-});
+function onContentChange(value) {
+  console.log(value);
+}
+
+ReactDOM.render(<MarkdownEditor
+  initialContent={'My initial content'}
+  onContentChange={onContentChange}
+  editorTabs={true}
+  previewClass={'md-editor-preview'}
+  textareaClass={'md-editor-textarea'}
+/>, document.getElementById('react-container-1'));
+
+/*
+initialContent: React.PropTypes.string.isRequired,
+onContentChange: React.PropTypes.func,
+editorTabs: React.PropTypes.bool,
+previewClass: React.PropTypes.string,   // md-editor-preview
+textareaClass: React.PropTypes.string   // md-editor-textarea
+*/

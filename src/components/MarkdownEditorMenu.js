@@ -9,9 +9,9 @@ var objectAssign = require('object-assign');
 var MarkdownEditorMenu = React.createClass({
   mixins: [Reflux.ListenerMixin, ButtonManagerMixin],
 
-  propTypes: {
-    iconsSet: React.PropTypes.string.isRequired
-  },
+  // propTypes: {
+  //   iconsSet: React.PropTypes.string.isRequired
+  // },
 
   getInitialState: function() {
     return {
@@ -21,7 +21,7 @@ var MarkdownEditorMenu = React.createClass({
 
   componentWillMount: function() {
     this.listenTo(MarkdownSelectionStore, this.handleMarkdownSelectionStore);
-    this.setIconsProvider(this.props.iconsSet);
+    // this.setIconsProvider(this.props.iconsSet);
   },
 
   render: function() {

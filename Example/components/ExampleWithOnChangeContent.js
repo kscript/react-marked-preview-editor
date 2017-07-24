@@ -1,5 +1,5 @@
 var React = require('react');
-var ReactMarkdownEditor = require('react-markdown-editor');
+var ReactMarkdownEditor = require('../../index');
 var MarkdownEditor = ReactMarkdownEditor.MarkdownEditor;
 
 var ExampleWithOnChangeContent = React.createClass({
