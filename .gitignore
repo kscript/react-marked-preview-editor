@@ -1,9 +1,5 @@
-coverage/
-dist/
-node_modules/
-Example/build
-
-#
-
+node_modules
+coverage
+lib
+*.log
 .DS_Store
-

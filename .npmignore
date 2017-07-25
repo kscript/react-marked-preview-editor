@@ -1,0 +1,8 @@
+node_modules
+coverage
+__test__
+example
+src
+*.log
+.babelrc
+.DS_Store
