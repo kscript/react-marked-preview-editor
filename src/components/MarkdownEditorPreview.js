@@ -1,7 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Marked = require('marked');
-var objectAssign = require('object-assign');
 
 var MarkdownEditorPreview = React.createClass({
   propTypes: {
@@ -15,7 +14,7 @@ var MarkdownEditorPreview = React.createClass({
     htmlContent = Marked(htmlContent);
 
     var styleMarkdownPreviewArea = MarkdownEditorPreview.defaultProps.styles.styleMarkdownPreviewArea
-    objectAssign(styleMarkdownPreviewArea, this.props.styles.styleMarkdownPreviewArea);
+    Object.assign(styleMarkdownPreviewArea, this.props.styles.styleMarkdownPreviewArea);
 
     return (
       <div

@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var ReactMarkdownEditor = require('../index');
+var ReactMarkdownEditor = require('../lib/index');
 var MarkdownEditor = ReactMarkdownEditor.MarkdownEditor;
 var ExampleWithOnChangeContent = require('./components/ExampleWithOnChangeContent');
 

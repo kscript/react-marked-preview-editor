@@ -3,7 +3,6 @@ var ReactDOM = require('react-dom');
 var Reflux = require('reflux');
 var MarkdownEditorActions = require('../actions/MarkdownEditorActions');
 var MarkdownEditorTabsInteractionStore = require('../stores/MarkdownEditorTabsInteractionStore');
-var objectAssign = require('object-assign');
 
 var MarkdownEditorTabs = React.createClass({
   mixins: [Reflux.ListenerMixin],
@@ -30,9 +29,9 @@ var MarkdownEditorTabs = React.createClass({
     var styleMarkdownEditorTabs = MarkdownEditorTabs.defaultProps.styles.styleMarkdownEditorTabs;
     var styleTab = MarkdownEditorTabs.defaultProps.styles.styleTab;
 
-    objectAssign(styleActiveTab, this.props.styles.styleActiveTab);
-    objectAssign(styleMarkdownEditorTabs, this.props.styles.styleMarkdownEditorTabs);
-    objectAssign(styleTab, this.props.styles.styleTab);
+    Object.assign(styleActiveTab, this.props.styles.styleActiveTab);
+    Object.assign(styleMarkdownEditorTabs, this.props.styles.styleMarkdownEditorTabs);
+    Object.assign(styleTab, this.props.styles.styleTab);
 
     if(this.props.hasOwnProperty('styles') && this.props.styles.hasOwnProperty('styleActiveTab')) {
         Object.assign(styleActiveTab, this.props.styles.styleActiveTab);

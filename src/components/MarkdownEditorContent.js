@@ -3,7 +3,6 @@ var ReactDOM = require('react-dom');
 var MarkdownUtils = require('../utils/MarkdownUtils');
 var PublicMarkdownEditorActions = require('../actions/PublicMarkdownEditorActions');
 var TextAreaSelectionMixin = require('../mixins/TextAreaSelectionMixin');
-var objectAssign = require('object-assign');
 
 var MarkdownEditorContent = React.createClass({
   propTypes: {
@@ -16,7 +15,7 @@ var MarkdownEditorContent = React.createClass({
 
   render: function() {
     var styleMarkdownTextArea = MarkdownEditorContent.defaultProps.styles.styleMarkdownTextArea
-    objectAssign(styleMarkdownTextArea, this.props.styles.styleMarkdownTextArea)
+    Object.assign(styleMarkdownTextArea, this.props.styles.styleMarkdownTextArea)
 
     return (
       <textarea

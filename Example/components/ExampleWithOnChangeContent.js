@@ -1,5 +1,5 @@
 var React = require('react');
-var ReactMarkdownEditor = require('../../index');
+var ReactMarkdownEditor = require('../../lib/index');
 var MarkdownEditor = ReactMarkdownEditor.MarkdownEditor;
 
 var ExampleWithOnChangeContent = React.createClass({
@@ -15,7 +15,6 @@ var ExampleWithOnChangeContent = React.createClass({
         <div style={{'border': '1px solid #ddd', 'padding': '10px', 'marginBottom': '30px'}}>{this.state.content}</div>
         <MarkdownEditor
           initialContent='My initial content'
-          iconsSet='materialize-ui'
           onContentChange={this._onContentChange} />
       </div>
     );

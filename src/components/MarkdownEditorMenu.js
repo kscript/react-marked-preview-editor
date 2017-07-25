@@ -4,7 +4,6 @@ var Reflux = require('reflux');
 var ButtonManagerMixin = require('../mixins/ButtonManagerMixin');
 var MarkdownSelectionStore = require('../stores/MarkdownSelectionStore');
 var MarkdownEditorActions = require('../actions/MarkdownEditorActions');
-var objectAssign = require('object-assign');
 
 var MarkdownEditorMenu = React.createClass({
   mixins: [Reflux.ListenerMixin, ButtonManagerMixin],
@@ -36,7 +35,7 @@ var MarkdownEditorMenu = React.createClass({
     var subHeaderButton = this.getButtonWithoutIcon(_disabled, this.handleSubHeaderButtonClick, 'md-editor-menu-subheader', 'Subheader');
 
     var styleMarkdownMenu = MarkdownEditorMenu.defaultProps.styles.styleMarkdownMenu;
-    objectAssign(styleMarkdownMenu, this.props.styles.styleMarkdownMenu);
+    Object.assign(styleMarkdownMenu, this.props.styles.styleMarkdownMenu);
 
     return (
       <div style={styleMarkdownMenu} className='md-editor-menu'>

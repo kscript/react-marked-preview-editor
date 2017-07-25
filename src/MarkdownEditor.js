@@ -15,7 +15,6 @@ var MarkdownEditorMenu = require('./components/MarkdownEditorMenu');
 var MarkdownEditorTabs = require('./components/MarkdownEditorTabs');
 var MarkdownEditorContent = require('./components/MarkdownEditorContent');
 var MarkdownEditorPreview = require('./components/MarkdownEditorPreview');
-var objectAssign = require('object-assign');
 
 var NullMarkdownToken = MarkdownTokenFactory.NullMarkdownToken;
 var RegularMarkdownToken = MarkdownTokenFactory.RegularMarkdownToken;
@@ -64,10 +63,10 @@ var MarkdownEditor = React.createClass({
     }
 
     var styleMarkdownEditorHeader = MarkdownEditor.defaultProps.styles.styleMarkdownEditorHeader;
-    objectAssign(styleMarkdownEditorHeader, this.props.styles.styleMarkdownEditorHeader);
+    Object.assign(styleMarkdownEditorHeader, this.props.styles.styleMarkdownEditorHeader);
 
     var styleMarkdownEditorContainer = MarkdownEditor.defaultProps.styles.styleMarkdownEditorContainer;
-    objectAssign(styleMarkdownEditorContainer, this.props.styles.styleMarkdownEditorContainer);
+    Object.assign(styleMarkdownEditorContainer, this.props.styles.styleMarkdownEditorContainer);
 
     return (
       <div style={styleMarkdownEditorContainer}>
