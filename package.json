@@ -1,12 +1,13 @@
 {
-  "name": "react-markdown-editor",
-  "version": "0.6.0",
-  "description": "A markdown editor with preview, implemented with React.js and Reflux",
-  "main": "dist/react-markdown-editor.js",
-  "module": "./index.js",
+  "name": "react-marked-preview-editor",
+  "version": "1.0.0",
+  "description": "A markdown editor and/or preview",
+  "main": "./lib/index.js",
   "scripts": {
     "prepublish": "./scripts/prepublish.sh",
-    "test": "./node_modules/jest-cli/bin/jest.js --coverage"
+    "test": "./node_modules/jest-cli/bin/jest.js --coverage",
+    "babel": "./node_modules/babel-cli/bin/babel.js src -d lib",
+    "example": "webpack-dev-server --config ./example/webpack.config.js --inline --color --progress"
   },
   "keywords": [
     "react-component",
@@ -55,7 +56,7 @@
     "react-dom": "^15.1.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.2.0",
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-loader": "^6.4.1",
     "babel-plugin-transform-react-jsx": "^6.24.1",
@@ -72,6 +73,7 @@
     "jest-cli": "^17.0.3",
     "mocha": "^2.5.3",
     "react": "^15.1.0",
+    "react-addons-test-utils": "^15.6.0",
     "react-dom": "^15.1.0",
     "react-tools": "^0.13.3",
     "style-loader": "^0.18.2",
