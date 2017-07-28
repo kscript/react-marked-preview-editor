@@ -4,7 +4,7 @@ var config = {
 
   devtool: 'source-map',
 
-  entry: './Example/index.js',
+  entry: './example/index.js',
 
   resolve: {
     extensions: [ '', '.js', '.jsx' ],
@@ -27,16 +27,16 @@ var config = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'Example/index.html',
+      template: 'example/index.html',
     }),
   ],
 
   module: {
     loaders: [
-      {
-        test: /\.css/,
-        loader: 'style-loader!css-loader',
-      },
+      // {
+      //   test: /\.css/,
+      //   loader: 'style-loader!css-loader',
+      // },
       {
         test: /\.js$/,
         exclude:/node_modules/,

@@ -21,7 +21,27 @@ var MarkdownEditorMenu = React.createClass({
   componentWillMount: function() {
     this.listenTo(MarkdownSelectionStore, this.handleMarkdownSelectionStore);
     // this.setIconsProvider(this.props.iconsSet);
+    this.whiteStyleInPage();
   },
+
+  // 在页面中写入 style
+  whiteStyleInPage: function () {
+    var styles = [
+      '.fa{display:inline-block;font:normal normal normal 14px/1;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}',
+      '.fa-bold:before{content:"Bold"}',
+      '.fa-italic:before{content:"Italic"}',
+      '.fa-list-ul:before{content:"Title"}',
+      '.fa-file-image-o:before{content:"Image"}',
+      '.fa-link:before{content:"Link"}'
+    ];
+    var styleEle = document.createElement('style');
+    document.getElementsByTagName('head')[0].appendChild(styleEle);
+    var styleSheet = styleEle.sheet;
+    styles.forEach(function (s) {
+      styleSheet.insertRule(s);
+    });
+  },
+
 
   render: function() {
 

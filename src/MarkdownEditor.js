@@ -25,7 +25,6 @@ var ListMarkdownToken = MarkdownTokenFactory.ListMarkdownToken;
 var ImageMarkdownToken = MarkdownTokenFactory.ImageMarkdownToken;
 
 var DefautStyle = require('./style/EditorStyle');
-require('./style/font-awosome.css');
 
 var MarkdownEditor = React.createClass({
   mixins: [Reflux.ListenerMixin],

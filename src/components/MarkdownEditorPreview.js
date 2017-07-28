@@ -1,6 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Marked = require('marked');
+// var Marked = require('marked');
+// var Raphael = require('raphael');
+// require('raphael');
+var Marked = require('../lib/marked');
 
 var MarkdownEditorPreview = React.createClass({
   propTypes: {

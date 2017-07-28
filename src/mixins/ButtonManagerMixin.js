@@ -49,7 +49,7 @@ var ButtonManagerMixin = {
     var _className = 'fa ' + iconName;
     return (
       <div role='button' className={containerClassName} style={styleBtn} disabled={isDisabled} onClick={onClickHandler}>
-        <i className={_className}></i>
+        <span className={_className}></span>
       </div>
     );
   },

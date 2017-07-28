@@ -1,6 +1,6 @@
 node_modules
 coverage
-__test__
+__tests__
 example
 src
 *.log

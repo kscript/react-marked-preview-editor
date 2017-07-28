@@ -1,146 +1,60 @@
 # react-markdown-editor
-A markdown editor using React/Reflux.
 
+A markdown editor and/or preview
 
-[![Build Status](http://img.shields.io/travis/jrm2k6/react-markdown-editor/master.svg?style=flat-square)](https://travis-ci.org/jrm2k6/react-markdown-editor)
-[![Code Climate](https://img.shields.io/codeclimate/github/kabisaict/flow.svg?style=flat-square)](https://codeclimate.com/github/jrm2k6/react-markdown-editor)
-[![License](https://img.shields.io/npm/l/express.svg?style=flat-square)](http://www.opensource.org/licenses/MIT)
-[![Latest Version](https://img.shields.io/npm/v/react-markdown-editor.svg?style=flat-square)](https://www.npmjs.com/package/react-markdown-editor)
-[![Total Downloads](https://img.shields.io/npm/dm/react-markdown-editor.svg?style=flat-square)](https://www.npmjs.com/package/react-markdown-editor)
+简洁 and 功能全面的 react markdown 编辑器/编译器
 
-##TLDR
-Demo here: http://jrm2k6.github.io/react-markdown-editor/
+## Demo
+
+~~~
+$ git clone https://github.com/yj1438/react-marked-preview-editor
+$ npm i
+$ npm run example
+~~~
+
+open `http://0.0.0.0:9080/`
 
 ## Installation
-``` npm install --save react-markdown-editor ``` or ```yarn add react-markdown-editor```
+``` npm install --save react-marked-preview-editor ```
 
 ## Features
-From the UI:
 
-- Bold
-- Italic
-- Header
-- Subheader
-- Link
-- Unordered List
-- Inline Images
-
-Of course it is a regular markdown editor (using the nice [markdown-js](https://github.com/evilstreak/markdown-js) library), so you are not limited to the UI.
+* 支持 markdown 全语法，包括流程图(需要自行引入 flowchart.js)。（modified from [marked](https://github.com/chjj/marked)
+* 支付同步的 edit/preview
+* 提供一组常用的语法工具按钮
 
 ## Usage
+
 To render the component:
-```
-var React = require('react');
-var MarkdownEditor = require('react-markdown-editor').MarkdownEditor;
 
-var TestComponent = React.createClass({
-	render: function() {
-		return (
-			<MarkdownEditor initialContent="Test" iconsSet="font-awesome"/>
-		);
-	}
-});
+```javascript
 
-React.render(<TestComponent />, document.getElementById('content'));
-```
+var mdEditor = <MarkdownEditor
+  initialContent={'My initial content'}				// content
+  onContentChange={onContentChange}						// editor content change event
+  editorTabs={true}														// editor tools
+  previewClass={'md-editor-preview markdown-body'}		// preview tabs contain className
+  textareaClass={'md-editor-textarea'}								// textarea tabs contain className
+/>;
 
-```<MarkdownEditor /> ``` takes two required props:
-
-    - initialContent which is the text you want the textarea to contain on initialization.
-    - iconsSet which is the icons provider you want to use. It can either be font-awesome or materialize-ui
-
-Optional props:
-
-   - ```onContentChange```, function to be called on each content change, getting the new content as an argument (as the property name says!)
-   - ```styles```, see [Styling](#styling) below
-
-You can also listen to content changes on the editor. If you are using Reflux, by listening to the changes on ```MarkdownEditorContentStore```.
-To be able to do so, just ```require('react-markdown-editor').MarkdownEditorContentStore;```
-
-## Dependencies
-You can modify the styles directly by modifying the styles declared in ```dist/MarkdownEditor.js```. The pre-existing styles assume that you are using Bootstrap and Font Awesome.
-
-## Styling<a name="styling"></a>
-```<MarkdownEditor />``` is styled using React's inline styling and can be styled by supplying a ```styles``` prop. The following keys are used to style each component, below are their default values:
-
-	- styleMarkdownEditorHeader : 
-		- display: 'flex'
-		- flexDirection: 'column'
-		- borderBottom: '1px solid #ddd'
-		- marginLeft: '0px'
-		- marginRight: '0px'
-		- minHeight: '50px'
-		- justifyContent: 'center'
-		- position: 'relative'
-	- styleMarkdownEditorContainer :
-		- display: 'flex'
-		- flexDirection: 'column'
-		- marginTop: '2px'
-		- paddingTop: '10px'
-		- border: '1px solid #ddd'
-		- backgroundColor: '#f7f7f7'
-	- styleMarkdownMenu :
-		- margin: '5px 0'
-		- flex: '1'
-		- display: 'flex'
-		- position: 'absolute'
-		- right: '20px'
-		- top: '10px'
-	- styleMarkdownTextArea : 
-		- height: '90%'
-		- width: '100%'
-		- padding: '30px 10px'
-		- border: 'none'
-	- styleMarkdownPreviewArea : 
-		- height: '90%'
-		- width: '100%'
-		- padding: '30px 10px'
-		- backgroundColor: '#fff'
-		- border: 'none'
-	- styleMarkdownEditorTabs : 
-		- border: 'none'
-		- display: 'flex'
-		- justifyContent: 'flex-start'
-    - styleTab :
-		- padding: '0px 20px'
-		- cursor: 'pointer'
-		- display: 'flex'
-		- justifyContent: 'center'
-		- alignItems: 'center'
-		- height: '50px'
-	- styleActiveTab :
-		- padding: '0px 20px'
-		- cursor: 'pointer'
-		- display: 'flex'
-		- justifyContent: 'center'
-		- alignItems: 'center'
-		- height: '50px'
-		- borderLeft: '1px solid #ddd'
-		- borderRight: '1px solid #ddd'
-		- borderTop: '1px solid #ddd'
-		- backgroundColor: '#fff'
-		- borderRadius: '3px'
-
-## TODO
-- [ ] Cross-browsers testing
-- [ ] Move to Redux
-
-## Example
+ReactDOM.render(mdEditor, document.getElementById('react-container-1'));
 
 ```
-cd Example
-npm install
-webpack
-open index.html
-```
 
-## Issues/Contribution
-You can open an issue on the github repo, or contact me directly by email.
+~~~html
+<head>
+  <meta charset="utf-8">
+  <!-- 可以全局引入以下辅助 js/css，加强 react-marked-preview-edit 的功能 -->
+  <!-- flowchart + raphael 绘制流程图 -->
+  <script src="../node_modules/raphael/raphael.js"></script>
+  <script src="../node_modules/flowchart.js/release/flowchart.js"></script>
+  <!-- 标准 github 的样式 -->
+  <link rel="stylesheet" type="text/css" href="../node_modules/github-markdown-css/github-markdown.css">
+</head>
+<body>
+  <div id="react-container-1">
+  </div>
+</body>
+~~~
 
-## Help
-Please, if you are using this package, let me know. I am interested to know what you think of it, even if it was on a tiny side-project.
-
-## Screenshots
-![Editing tab](http://i.imgur.com/XPdJmqm.png "Editing tab")
-![Editing tab with custom styles](http://imgur.com/a/pLuLd "Editing tab with custom styles")
-![Preview tab](http://i.imgur.com/uavBSUN.png "Preview tab")
+> [react-markdown-editor](https://github.com/jrm2k6/react-markdown-editors)
