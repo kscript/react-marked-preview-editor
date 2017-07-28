@@ -4,10 +4,10 @@
   "description": "A markdown editor and/or preview",
   "main": "./lib/index.js",
   "scripts": {
-    "prepublish": "npm run babel && cp src/style/font-awosome.css lib/style/",
+    "prepublish": "npm run babel",
     "test": "./node_modules/jest-cli/bin/jest.js --coverage",
     "babel": "./node_modules/babel-cli/bin/babel.js src -d lib",
-    "example": "npm run prepublish && webpack-dev-server --config ./example/webpack.config.js --inline --color --progress"
+    "example": "webpack-dev-server --config ./example/webpack.config.js --inline --color --progress"
   },
   "keywords": [
     "react-component",
@@ -42,8 +42,6 @@
     "url": "https://github.com/yj1438/react-marked-preview-editor"
   },
   "dependencies": {
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
     "reflux": "^0.4.1"
   },
   "devDependencies": {
