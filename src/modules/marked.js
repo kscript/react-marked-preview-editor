@@ -777,7 +777,7 @@ Renderer.prototype.code = function(code, lang, escaped) {
   }
   
   console.log(lang);
-  if (lang === 'flow') {
+  if (lang === 'flow' && window.Raphael && window.flowchart) {
     var diagram = flowchart.parse(code);
     var tempId = 'diagram_' + new Date().getTime();
     var diagramEle = document.createElement('div');
