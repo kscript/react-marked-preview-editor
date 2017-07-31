@@ -24,7 +24,9 @@ var UrlMarkdownToken = MarkdownTokenFactory.UrlMarkdownToken;
 var ListMarkdownToken = MarkdownTokenFactory.ListMarkdownToken;
 var ImageMarkdownToken = MarkdownTokenFactory.ImageMarkdownToken;
 
-var DefautStyle = require('./style/EditorStyle');
+var DefaultStyle = require('./style/EditorStyle');
+var DefaultTabs = ['edit', 'preview'];
+
 
 var MarkdownEditor = React.createClass({
   mixins: [Reflux.ListenerMixin],
@@ -33,8 +35,9 @@ var MarkdownEditor = React.createClass({
     initialContent: React.PropTypes.string.isRequired,
     onContentChange: React.PropTypes.func,
     editorTabs: React.PropTypes.bool,
-    previewClass: React.PropTypes.string,   // md-editor-preview
-    textareaClass: React.PropTypes.string       // md-editor-textarea
+    tabs: React.PropTypes.array,                      // edit, preview
+    previewClass: React.PropTypes.string,           // md-editor-preview
+    textareaClass: React.PropTypes.string           // md-editor-textarea
   },
 
   getInitialState: function() {
@@ -43,8 +46,8 @@ var MarkdownEditor = React.createClass({
   },
 
   render: function() {
-    var divContent;
-    var editorMenu;
+    var divContent;         // 编辑/展示区
+    var editorMenu;         // 编辑区工具栏
 
     if (this.state.inEditMode) {
       divContent = <MarkdownEditorContent className={this.props.textareaClass}
@@ -67,14 +70,39 @@ var MarkdownEditor = React.createClass({
     var styleMarkdownEditorContainer = MarkdownEditor.defaultProps.styles.styleMarkdownEditorContainer;
     Object.assign(styleMarkdownEditorContainer, this.props.styles.styleMarkdownEditorContainer);
 
+    var hasTabs;
+    var realTabs = [];
+    if (this.props.tabs && this.props.tabs.length > 0) {
+      hasTabs = this.props.tabs.some(function (item) {
+        return DefaultTabs.indexOf(item) >= 0;
+      });
+      if (!hasTabs) {
+        console.warn('please check prop \'tabs\'');
+      } else {
+        this.props.tabs.forEach(function (item) {
+          if (realTabs.indexOf(item) === -1 && DefaultTabs.indexOf(item) >= 0) {
+            realTabs.push(item);
+          }
+        });
+      }
+    } else {
+      realTabs = DefaultTabs;
+    }
+    console.log(realTabs);
+
     return (
       <div style={styleMarkdownEditorContainer}>
-        <div style={styleMarkdownEditorHeader} className='md-editor-header'>
-          {editorMenu}
-          <MarkdownEditorTabs styles={{ styleMarkdownEditorTabs: this.props.styles.styleMarkdownEditorTabs,
-                                        styleTab: this.props.styles.styleTab,
-                                        styleActiveTab: this.props.styles.styleActiveTab}} />
-        </div>
+        {
+          hasTabs ?
+            <div style={styleMarkdownEditorHeader} className='md-editor-header'>
+              <MarkdownEditorTabs styles={{ styleMarkdownEditorTabs: this.props.styles.styleMarkdownEditorTabs,
+                                            styleTab: this.props.styles.styleTab,
+                                            styleActiveTab: this.props.styles.styleActiveTab}} 
+                                  tabs={realTabs} />
+              {editorMenu}
+            </div>
+            : null
+        }
         {divContent}
       </div>
     );
@@ -152,7 +180,7 @@ var MarkdownEditor = React.createClass({
 });
 
 MarkdownEditor.defaultProps = {
-   styles : DefautStyle
+   styles : DefaultStyle
 }
 
 module.exports = MarkdownEditor;

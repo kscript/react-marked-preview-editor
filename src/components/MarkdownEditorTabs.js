@@ -25,17 +25,9 @@ var MarkdownEditorTabs = React.createClass({
 
   render: function() {
 
-    var styleActiveTab = MarkdownEditorTabs.defaultProps.styles.styleActiveTab;
-    var styleMarkdownEditorTabs = MarkdownEditorTabs.defaultProps.styles.styleMarkdownEditorTabs;
-    var styleTab = MarkdownEditorTabs.defaultProps.styles.styleTab;
-
-    Object.assign(styleActiveTab, this.props.styles.styleActiveTab);
-    Object.assign(styleMarkdownEditorTabs, this.props.styles.styleMarkdownEditorTabs);
-    Object.assign(styleTab, this.props.styles.styleTab);
-
-    if(this.props.hasOwnProperty('styles') && this.props.styles.hasOwnProperty('styleActiveTab')) {
-        Object.assign(styleActiveTab, this.props.styles.styleActiveTab);
-    }
+    var styleActiveTab = this.props.styles.styleActiveTab;
+    var styleMarkdownEditorTabs = this.props.styles.styleMarkdownEditorTabs;
+    var styleTab = this.props.styles.styleTab;
 
     var editorTabStyle;
     var previewTabStyle;
@@ -47,18 +39,28 @@ var MarkdownEditorTabs = React.createClass({
       editorTabStyle = styleTab;
     }
 
-    return (
-      <div style={styleMarkdownEditorTabs} className='md-editor-tabs'>
-        <div style={editorTabStyle}
+    var tabMap = {
+      'edit': <div style={editorTabStyle}
+          key={'md-EditorTab'}
           className="md-editor-tabs-item"
           onClick={this.handleClick.bind(this, 'clickEditorTab')}>
           <span>Editor</span>
-        </div>
-        <div style={previewTabStyle}
+        </div>,
+      'preview': <div style={previewTabStyle}
+          key={'md-clickPreviewTab'}
           className="md-editor-tabs-item"
           onClick={this.handleClick.bind(this, 'clickPreviewTab')}>
           <span>Preview</span>
         </div>
+    };
+
+    return (
+      <div style={styleMarkdownEditorTabs} className='md-editor-tabs'>
+        {
+          this.props.tabs.map(function (item) {
+            return tabMap[item];
+          })
+        }
       </div>
     );
   },
@@ -67,36 +69,5 @@ var MarkdownEditorTabs = React.createClass({
     MarkdownEditorActions[actionName]();
   }
 });
-
-MarkdownEditorTabs.defaultProps = {
-    styles : {
-        styleMarkdownEditorTabs : {
-            'border': 'none',
-            'display': 'flex',
-            'justifyContent': 'flex-start'
-        },
-        styleTab : {
-            padding: '0px 20px',
-            cursor: 'pointer',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '50px'
-         },
-         styleActiveTab : {
-            padding: '0px 20px',
-            cursor: 'pointer',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '50px',
-            borderLeft: '1px solid #ddd',
-            borderRight: '1px solid #ddd',
-            borderTop: '1px solid #ddd',
-            backgroundColor: '#fff',
-            borderRadius: '3px'
-        }
-    }
-}
 
 module.exports = MarkdownEditorTabs;

@@ -36,15 +36,12 @@ module.exports = {
     resize: 'none',
   },
   styleMarkdownPreviewArea: {
-    height: '441px',
+    height: '440px',
     width: '100%',
     padding: '10px',
     backgroundColor: '#fff',
-    border: 'none',
-    overflow: 'auto',
   },
   styleMarkdownEditorTabs: {
-    border: 'none',
     display: 'flex',
     justifyContent: 'flex-start',
   },
@@ -64,7 +61,5 @@ module.exports = {
     alignItems: 'center',
     height: '36px',
     backgroundColor: '#fff',
-    border: 'none',
-    borderRadius: '0',
   },
 };
