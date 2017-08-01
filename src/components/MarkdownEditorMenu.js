@@ -42,7 +42,6 @@ var MarkdownEditorMenu = React.createClass({
     });
   },
 
-
   render: function() {
 
     var _disabled = (!this.state.enabled) ? 'disabled' : '';
@@ -54,8 +53,7 @@ var MarkdownEditorMenu = React.createClass({
     var headerButton = this.getButtonWithoutIcon(_disabled, this.handleHeaderButtonClick, 'md-editor-menu-header', 'Header');
     var subHeaderButton = this.getButtonWithoutIcon(_disabled, this.handleSubHeaderButtonClick, 'md-editor-menu-subheader', 'Subheader');
 
-    var styleMarkdownMenu = MarkdownEditorMenu.defaultProps.styles.styleMarkdownMenu;
-    Object.assign(styleMarkdownMenu, this.props.styles.styleMarkdownMenu);
+    var styleMarkdownMenu = this.props.styles.styleMarkdownMenu;
 
     return (
       <div style={styleMarkdownMenu} className='md-editor-menu'>
@@ -110,18 +108,5 @@ var MarkdownEditorMenu = React.createClass({
     MarkdownEditorActions.makeList(this.props.instanceRef);
   }
 });
-
-MarkdownEditorMenu.defaultProps = {
-    styles: { 
-        styleMarkdownMenu : {
-            'margin': '5px 0',
-            'flex': '1',
-            'display': 'flex',
-            'position': 'absolute',
-            'right': '20px',
-            'top': '10px'
-        }
-    }
-}
 
 module.exports = MarkdownEditorMenu;

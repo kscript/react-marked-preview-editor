@@ -16,8 +16,7 @@ var MarkdownEditorPreview = React.createClass({
     var htmlContent = this.props.content.replace(/[\n]/g, '  \n');
     htmlContent = Marked(htmlContent);
 
-    var styleMarkdownPreviewArea = MarkdownEditorPreview.defaultProps.styles.styleMarkdownPreviewArea
-    Object.assign(styleMarkdownPreviewArea, this.props.styles.styleMarkdownPreviewArea);
+    var styleMarkdownPreviewArea = this.props.styles.styleMarkdownPreviewArea;
 
     return (
       <div
@@ -28,17 +27,5 @@ var MarkdownEditorPreview = React.createClass({
     );
   }
 });
-
-MarkdownEditorPreview.defaultProps = {
-    styles : {
-        styleMarkdownPreviewArea : {
-            height: '90%',
-            width: '100%',
-            padding: '30px 10px',
-            backgroundColor: '#fff',
-            border: 'none'
-        }
-    }
-}
 
 module.exports = MarkdownEditorPreview;

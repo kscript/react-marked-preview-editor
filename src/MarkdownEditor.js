@@ -36,68 +36,82 @@ var MarkdownEditor = React.createClass({
     onContentChange: React.PropTypes.func,
     editorTabs: React.PropTypes.bool,
     tabs: React.PropTypes.array,                      // edit, preview
-    previewClass: React.PropTypes.string,           // md-editor-preview
-    textareaClass: React.PropTypes.string           // md-editor-textarea
+    previewClass: React.PropTypes.string,             // md-editor-preview
+    textareaClass: React.PropTypes.string             // md-editor-textarea
+  },
+
+  /**
+   * 获取 tabs 显示的元素
+   * 从 this.props.tabs 中去重、去杂
+   * @returns 
+   */
+  _getRealTabs: function () {
+    var realTabs = [];
+    if (this.props.tabs && this.props.tabs.length > 0) {
+      this.props.tabs.forEach(function (item) {
+        if (realTabs.indexOf(item) === -1 && DefaultTabs.indexOf(item) >= 0) {
+          realTabs.push(item);
+        }
+      });
+    } else {
+      realTabs = DefaultTabs;
+    }
+    return realTabs;
+  },
+
+
+  /**
+   * 获取用户自定义样式 + defautlstyle 的合并样式
+   * @returns 
+   */
+  _getMergeStyle: function () {
+    return Object.assign({}, DefaultStyle, this.props.styles || {});
   },
 
   getInitialState: function() {
     var uniqueInstanceRef = Math.random().toString(36).substring(7)
-    return {content: this.props.initialContent, inEditMode: true, instanceRef: uniqueInstanceRef};
+    var realTabs = this._getRealTabs();
+    return {
+      content: this.props.initialContent, 
+      inEditMode: realTabs.length > 0 && realTabs[0] === 'edit' ? true : false, 
+      instanceRef: uniqueInstanceRef
+    };
   },
 
+  /**
+   * 主渲染方法
+   * @returns 
+   */
   render: function() {
+    var mergedStyle = this._getMergeStyle();
     var divContent;         // 编辑/展示区
     var editorMenu;         // 编辑区工具栏
 
     if (this.state.inEditMode) {
       divContent = <MarkdownEditorContent className={this.props.textareaClass}
-                                          styles={{styleMarkdownTextArea: this.props.styles.styleMarkdownTextArea}}
+                                          styles={{styleMarkdownTextArea: mergedStyle.styleMarkdownTextArea}}
                                           content={this.state.content} onChangeHandler={this.onChangeHandler}/>;
       if (this.props.editorTabs !== false){
-          editorMenu = <MarkdownEditorMenu styles={{styleMarkdownMenu: this.props.styles.styleMarkdownMenu}}
+          editorMenu = <MarkdownEditorMenu styles={{styleMarkdownMenu: mergedStyle.styleMarkdownMenu}}
                                            instanceRef={this.state.instanceRef}/>;
       }
     } else {
       divContent = <MarkdownEditorPreview className={this.props.previewClass}
-                                          styles={{styleMarkdownPreviewArea: this.props.styles.styleMarkdownPreviewArea}}
+                                          styles={{styleMarkdownPreviewArea: mergedStyle.styleMarkdownPreviewArea}}
                                           content={this.state.content} />;
       editorMenu = null;
     }
 
-    var styleMarkdownEditorHeader = MarkdownEditor.defaultProps.styles.styleMarkdownEditorHeader;
-    Object.assign(styleMarkdownEditorHeader, this.props.styles.styleMarkdownEditorHeader);
-
-    var styleMarkdownEditorContainer = MarkdownEditor.defaultProps.styles.styleMarkdownEditorContainer;
-    Object.assign(styleMarkdownEditorContainer, this.props.styles.styleMarkdownEditorContainer);
-
-    var hasTabs;
-    var realTabs = [];
-    if (this.props.tabs && this.props.tabs.length > 0) {
-      hasTabs = this.props.tabs.some(function (item) {
-        return DefaultTabs.indexOf(item) >= 0;
-      });
-      if (!hasTabs) {
-        console.warn('please check prop \'tabs\'');
-      } else {
-        this.props.tabs.forEach(function (item) {
-          if (realTabs.indexOf(item) === -1 && DefaultTabs.indexOf(item) >= 0) {
-            realTabs.push(item);
-          }
-        });
-      }
-    } else {
-      realTabs = DefaultTabs;
-    }
-    console.log(realTabs);
-
+    var realTabs = this._getRealTabs()
+    var needHeader = realTabs.length > 1 || (realTabs[0] === 'edit' && this.props.editorTabs)
     return (
-      <div style={styleMarkdownEditorContainer}>
+      <div style={mergedStyle.styleMarkdownEditorContainer}>
         {
-          hasTabs ?
-            <div style={styleMarkdownEditorHeader} className='md-editor-header'>
-              <MarkdownEditorTabs styles={{ styleMarkdownEditorTabs: this.props.styles.styleMarkdownEditorTabs,
-                                            styleTab: this.props.styles.styleTab,
-                                            styleActiveTab: this.props.styles.styleActiveTab}} 
+          needHeader ?
+            <div style={mergedStyle.styleMarkdownEditorHeader} className='md-editor-header'>
+              <MarkdownEditorTabs styles={{ styleMarkdownEditorTabs: mergedStyle.styleMarkdownEditorTabs,
+                                            styleTab: mergedStyle.styleTab,
+                                            styleActiveTab: mergedStyle.styleActiveTab}} 
                                   tabs={realTabs} />
               {editorMenu}
             </div>
@@ -178,9 +192,5 @@ var MarkdownEditor = React.createClass({
     }
   }
 });
-
-MarkdownEditor.defaultProps = {
-   styles : DefaultStyle
-}
 
 module.exports = MarkdownEditor;

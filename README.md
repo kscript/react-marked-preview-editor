@@ -33,6 +33,7 @@ var mdEditor = <MarkdownEditor
   initialContent={'My initial content'}				// content
   onContentChange={onContentChange}						// editor content change event
   editorTabs={true}														// editor tools
+  tabs={['preview', 'edit']}                  // tabs item array enum from 'edit'/'preview'
   previewClass={'md-editor-preview markdown-body'}		// preview tabs contain className
   textareaClass={'md-editor-textarea'}								// textarea tabs contain className
 />;

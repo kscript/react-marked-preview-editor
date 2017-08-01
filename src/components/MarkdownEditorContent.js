@@ -14,8 +14,7 @@ var MarkdownEditorContent = React.createClass({
   mixins: [TextAreaSelectionMixin],
 
   render: function() {
-    var styleMarkdownTextArea = MarkdownEditorContent.defaultProps.styles.styleMarkdownTextArea
-    Object.assign(styleMarkdownTextArea, this.props.styles.styleMarkdownTextArea)
+    var styleMarkdownTextArea = this.props.styles.styleMarkdownTextArea;
 
     return (
       <textarea
@@ -45,16 +44,5 @@ var MarkdownEditorContent = React.createClass({
     this.refs.editor.value = this.props.content;
   }
 });
-
-MarkdownEditorContent.defaultProps = {
-  styles : {
-    styleMarkdownTextArea : {
-      height: '90%',
-      width: '100%',
-      padding: '30px 10px',
-      border: 'none'
-    }
-  }
-}
 
 module.exports = MarkdownEditorContent;

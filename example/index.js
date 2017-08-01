@@ -20,12 +20,13 @@ var initCont = `
     st->op->cond
     cond(yes)->e
     cond(no)->op
-~~~`;
+~~~`
 
 ReactDOM.render(<MarkdownEditor
   initialContent={initCont}
   onContentChange={onContentChange}
   editorTabs={true}
+  tabs={['edit']}
   previewClass={'md-editor-preview markdown-body'}
   textareaClass={'md-editor-textarea'}
 />, document.getElementById('react-container-1'));

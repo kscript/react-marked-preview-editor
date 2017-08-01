@@ -9,7 +9,7 @@ var MarkdownEditorTabs = React.createClass({
 
   getInitialState: function() {
     return {
-      activeTab: 0
+      activeTab: this.props.tabs[0] === 'edit' ? 0 : 1
     };
   },
 
