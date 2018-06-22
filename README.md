@@ -25,6 +25,47 @@ open `http://0.0.0.0:9080/`
 
 ## Usage
 
+Using in webpack
+
+```jsx
+import React from 'react';
+import { MarkdownEditor } from 'react-marked-preview-editor'
+import 'github-markdown-css';
+
+class Editor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      content: '## my content'
+    }
+    setTimeout(() => {
+      this.editor.setState({
+        content: '## update content'
+      })
+    }, 3000)
+  }
+
+  onContentChange = () => {
+  }
+  
+  render(){
+    return (
+      <MarkdownEditor
+        editorTabs // editor tools
+        ref={(c) => { this.editor = c }}
+        initialContent={this.state.content} // content
+        onContentChange={this.onContentChange} // editor content change event
+        tabs={['edit', 'preview']} // tabs item array enum from 'edit'/'preview'
+        previewClass={'md-editor-preview markdown-body'} // preview tabs contain className
+        textareaClass={'md-editor-textarea'} // textarea tabs contain className
+      />
+      );
+  }
+}
+export default Editor;
+```
+
+
 To render the component:
 
 ```javascript
